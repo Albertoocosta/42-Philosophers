@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/08 12:01:03 by cda-fons          #+#    #+#             */
+/*   Updated: 2025/07/08 12:12:25 by cda-fons         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -30,8 +42,8 @@ typedef struct s_philo_data
 	int				lastmeal;
 	pthread_mutex_t	*lfork;
 	pthread_mutex_t	*rfork;
-	pthread_mutex_t numeal;
-	pthread_mutex_t meal;
+	pthread_mutex_t	numeal;
+	pthread_mutex_t	meal;
 	t_philo			*data;
 }					t_philo_data;
 

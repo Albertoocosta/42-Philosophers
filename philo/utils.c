@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 16:34:54 by alberto           #+#    #+#             */
-/*   Updated: 2025/07/07 00:31:13 by alberto          ###   ########.fr       */
+/*   Created: 2025/07/04 16:34:54 by cda-fons          #+#    #+#             */
+/*   Updated: 2025/07/08 13:48:10 by cda-fons         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_num(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (str[i])
 	{
@@ -45,5 +45,6 @@ void	*philo_sleep(t_philo_data *philo)
 	print_philo(philo, "sleeping");
 	usleep(philo->data->tsleep * 1000);
 	print_philo(philo, "thinking");
+	usleep(100);
 	return (NULL);
 }

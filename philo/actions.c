@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/08 12:00:42 by cda-fons          #+#    #+#             */
+/*   Updated: 2025/07/08 12:07:04 by cda-fons         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	*philo_eat(t_philo_data *philo)
@@ -24,9 +36,10 @@ void	*philo_eat(t_philo_data *philo)
 	aux_philo_eat(philo);
 	return (NULL);
 }
+
 static int	all_philos_ok(t_philo *time, t_philo_data *philo, int *total)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	while (i < time->nphilo)
@@ -45,29 +58,30 @@ void	*check_death(t_philo *time, t_philo_data *philo)
 	int	total;
 
 	total = 0;
-    while(1)
-    {
-        usleep(1000);
-        if (all_philos_ok(time, philo, &total) == 1)
-            return (NULL);
-        if (total == time->nphilo)
-        {
-            pthread_mutex_lock(&philo->data->death);
-            philo->data->isdprint = 1;
-            pthread_mutex_unlock(&philo->data->death);
-            return (NULL);
-        }
-    }
+	while (1)
+	{
+		usleep(1000);
+		if (all_philos_ok(time, philo, &total) == 1)
+			return (NULL);
+		if (total == time->nphilo)
+		{
+			pthread_mutex_lock(&philo->data->death);
+			philo->data->isdprint = 1;
+			pthread_mutex_unlock(&philo->data->death);
+			return (NULL);
+		}
+	}
 }
 
-int check_if_is_death(t_philo_data *philo)
+int	check_if_is_death(t_philo_data *philo)
 {
 	pthread_mutex_lock(&philo->meal);
 	if (get_time() - philo->lastmeal > philo->data->tdie)
 	{
 		pthread_mutex_unlock(&philo->meal);
 		pthread_mutex_lock(&philo->data->print);
-		printf("%i %i died\n", get_time() - philo->data->startime, philo->id + 1);
+		printf("%i %i died\n", get_time() - philo->data->startime,
+			philo->id + 1);
 		pthread_mutex_unlock(&philo->data->print);
 		pthread_mutex_lock(&philo->data->death);
 		philo->data->isdprint = 1;
@@ -84,8 +98,8 @@ int	eat_all(t_philo_data *philo)
 	if (philo->data->tmusteat != -1 && philo->nmeals >= philo->data->tmusteat)
 	{
 		pthread_mutex_unlock(&philo->numeal);
-		return(1);
+		return (1);
 	}
 	pthread_mutex_unlock(&philo->numeal);
-	return(0);
+	return (0);
 }
