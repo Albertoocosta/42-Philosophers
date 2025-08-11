@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:00:50 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/08 15:28:16 by cda-fons         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:40:51 by alberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,7 @@ void	create_pthreads(t_philo *time, t_philo_data *philo)
 	i = 0;
 	while (i < time->nphilo)
 	{
-		if (i % 2 == 0)
-			pthread_create(&time->id[i], NULL, &run_philos, (void *)&philo[i]);
-		i += 2;
-	}
-	usleep(100);
-	i = 1;
-	while (i < time->nphilo)
-	{
 		pthread_create(&time->id[i], NULL, &run_philos, (void *)&philo[i]);
-		i += 2;
-	}
-	if (!check_death(time, philo))
-		return ;
-	i = 0;
-	while (i < time->nphilo)
-	{
-		pthread_join(time->id[i], NULL);
 		i++;
 	}
 }
@@ -88,7 +72,9 @@ void	create_pthreads(t_philo *time, t_philo_data *philo)
 int	init_philos(t_philo *time)
 {
 	t_philo_data	*philo;
+	int				i;
 
+	i = 0;
 	philo = (t_philo_data *)malloc((time->nphilo) * sizeof(t_philo_data));
 	time->id = (pthread_t *)malloc((time->nphilo) * sizeof(pthread_t));
 	time->forks = (pthread_mutex_t *)malloc((time->nphilo)
@@ -97,6 +83,12 @@ int	init_philos(t_philo *time)
 	init_mutex(time);
 	time->startime = get_time();
 	create_pthreads(time, philo);
+	check_death(time, philo);
+	while (i < time->nphilo)
+	{
+		pthread_join(time->id[i], NULL);
+		i++;
+	}
 	destroy_mutex(time, philo);
 	free(philo);
 	return (0);

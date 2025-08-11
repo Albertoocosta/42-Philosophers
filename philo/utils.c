@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:34:54 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/08 13:48:10 by cda-fons         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:26:51 by alberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	aux_philo_eat(t_philo_data *philo)
 	philo->lastmeal = get_time();
 	pthread_mutex_unlock(&philo->meal);
 	print_philo(philo, "eating");
-	usleep(philo->data->teat * 1000);
+	usleep(philo->data->teat * 100);
 	pthread_mutex_lock(&philo->numeal);
 	philo->nmeals++;
 	pthread_mutex_unlock(&philo->numeal);
@@ -43,8 +43,25 @@ void	aux_philo_eat(t_philo_data *philo)
 void	*philo_sleep(t_philo_data *philo)
 {
 	print_philo(philo, "sleeping");
-	usleep(philo->data->tsleep * 1000);
+	usleep(philo->data->tsleep * 100);
 	print_philo(philo, "thinking");
 	usleep(100);
 	return (NULL);
+}
+
+void	ft_usleep(int time_to_wait, t_philo_data *philo)
+{
+	int start_time;
+	start_time = get_time();
+	while ((get_time() - start_time) < time_to_wait)
+	{
+		pthread_mutex_lock(&philo->data->death);
+		if (philo->data->isdprint == 1)
+		{
+			pthread_mutex_unlock(&philo->data->death);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->data->death);
+		usleep(100);
+	}
 }

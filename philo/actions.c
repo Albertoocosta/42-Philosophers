@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:00:42 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/08 12:07:04 by cda-fons         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:15:18 by alberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*philo_eat(t_philo_data *philo)
 	print_philo(philo, "has taken a fork");
 	if (philo->data->nphilo == 1)
 	{
-		usleep((philo->data->tdie + 10) * 1000);
+		ft_usleep((philo->data->tdie + 10) * 100, philo);
 		pthread_mutex_unlock(philo->lfork);
 		return (NULL);
 	}
@@ -57,10 +57,10 @@ void	*check_death(t_philo *time, t_philo_data *philo)
 {
 	int	total;
 
-	total = 0;
 	while (1)
 	{
-		usleep(1000);
+		total = 0;
+		usleep(100);
 		if (all_philos_ok(time, philo, &total) == 1)
 			return (NULL);
 		if (total == time->nphilo)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:01:07 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/08 12:12:48 by cda-fons         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:54:35 by alberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	start_philo(t_philo_data *philo, t_philo *time)
 		pthread_mutex_init(&philo[i].numeal, NULL);
 		philo[i].id = i;
 		philo[i].data = time;
-		philo[i].lastmeal = 0;
+		philo[i].lastmeal = get_time();
 		philo[i].nmeals = 0;
 		philo[i].lfork = &time->forks[i];
 		if (i == time->nphilo - 1)
