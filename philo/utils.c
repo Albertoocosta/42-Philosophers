@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:34:54 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/10 22:26:51 by alberto          ###   ########.fr       */
+/*   Updated: 2025/08/11 17:25:24 by cda-fons         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	aux_philo_eat(t_philo_data *philo)
 	philo->lastmeal = get_time();
 	pthread_mutex_unlock(&philo->meal);
 	print_philo(philo, "eating");
-	usleep(philo->data->teat * 100);
+	usleep(philo->data->teat * 1000);
 	pthread_mutex_lock(&philo->numeal);
 	philo->nmeals++;
 	pthread_mutex_unlock(&philo->numeal);
@@ -43,7 +43,7 @@ void	aux_philo_eat(t_philo_data *philo)
 void	*philo_sleep(t_philo_data *philo)
 {
 	print_philo(philo, "sleeping");
-	usleep(philo->data->tsleep * 100);
+	usleep(philo->data->tsleep * 1000);
 	print_philo(philo, "thinking");
 	usleep(100);
 	return (NULL);

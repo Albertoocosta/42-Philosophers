@@ -6,7 +6,7 @@
 #    By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 12:01:00 by cda-fons          #+#    #+#              #
-#    Updated: 2025/07/08 12:01:01 by cda-fons         ###   ########.fr        #
+#    Updated: 2025/08/11 17:49:55 by cda-fons         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ SRCS = main.c init.c actions.c routine.c routine2.c utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
-
 
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)

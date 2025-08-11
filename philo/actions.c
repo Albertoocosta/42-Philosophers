@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:00:42 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/10 22:15:18 by alberto          ###   ########.fr       */
+/*   Updated: 2025/08/11 16:38:53 by cda-fons         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 void	*philo_eat(t_philo_data *philo)
 {
-	if (philo->id % 2 == 0)
-		pthread_mutex_lock(philo->lfork);
-	else
-		pthread_mutex_lock(philo->rfork);
 	print_philo(philo, "has taken a fork");
 	if (philo->data->nphilo == 1)
 	{
-		ft_usleep((philo->data->tdie + 10) * 100, philo);
+		pthread_mutex_lock(philo->lfork);
+		print_philo(philo, "has taken a fork");
+		ft_usleep(philo->data->tdie * 1000 + 1000, philo);
 		pthread_mutex_unlock(philo->lfork);
 		return (NULL);
 	}
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->lfork);
+		print_philo(philo, "has taken a fork");
+		pthread_mutex_lock(philo->rfork);
+		print_philo(philo, "has taken a fork");
+	}
 	else
 	{
-		if (philo->id % 2 == 0)
-			pthread_mutex_lock(philo->rfork);
-		else
-			pthread_mutex_lock(philo->lfork);
+		pthread_mutex_lock(philo->rfork);
+		print_philo(philo, "has taken a fork");
+		pthread_mutex_lock(philo->lfork);
 		print_philo(philo, "has taken a fork");
 	}
 	aux_philo_eat(philo);
@@ -79,13 +83,18 @@ int	check_if_is_death(t_philo_data *philo)
 	if (get_time() - philo->lastmeal > philo->data->tdie)
 	{
 		pthread_mutex_unlock(&philo->meal);
+		pthread_mutex_lock(&philo->data->death);
+		if (philo->data->isdprint == 1)
+		{
+			pthread_mutex_unlock(&philo->data->death);
+			return (1);
+		}
+		philo->data->isdprint = 1;
+		pthread_mutex_unlock(&philo->data->death);
 		pthread_mutex_lock(&philo->data->print);
 		printf("%i %i died\n", get_time() - philo->data->startime,
 			philo->id + 1);
 		pthread_mutex_unlock(&philo->data->print);
-		pthread_mutex_lock(&philo->data->death);
-		philo->data->isdprint = 1;
-		pthread_mutex_unlock(&philo->data->death);
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->meal);
