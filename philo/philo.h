@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alberto <alberto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:01:03 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/07/09 22:54:52 by alberto          ###   ########.fr       */
+/*   Updated: 2025/08/14 16:02:54 by cda-fons         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int		eat_all(t_philo_data *philo);
 int		check_num(char *str);
 void	*philo_sleep(t_philo_data *philo);
 void	aux_philo_eat(t_philo_data *philo);
-void	ft_usleep(int time_to_wait, t_philo_data *philo);
+void	ft_usleep(int time_to_wait);
 
 #endif

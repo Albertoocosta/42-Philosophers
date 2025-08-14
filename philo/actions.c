@@ -6,7 +6,7 @@
 /*   By: cda-fons <cda-fons@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:00:42 by cda-fons          #+#    #+#             */
-/*   Updated: 2025/08/11 16:38:53 by cda-fons         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:03:30 by cda-fons         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*philo_eat(t_philo_data *philo)
 	{
 		pthread_mutex_lock(philo->lfork);
 		print_philo(philo, "has taken a fork");
-		ft_usleep(philo->data->tdie * 1000 + 1000, philo);
+		ft_usleep(1);
 		pthread_mutex_unlock(philo->lfork);
 		return (NULL);
 	}
@@ -64,7 +64,7 @@ void	*check_death(t_philo *time, t_philo_data *philo)
 	while (1)
 	{
 		total = 0;
-		usleep(100);
+		ft_usleep(1);
 		if (all_philos_ok(time, philo, &total) == 1)
 			return (NULL);
 		if (total == time->nphilo)
